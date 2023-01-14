@@ -1,0 +1,26 @@
+name: Sync scrapbox data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: denoland/setup-deno@v1
+
+      - name: Sync data
+        run: >
+          deno run
+          --allow-read=./
+          --allow-net=scrapbox.io
+          --allow-env
+          index.ts
+        env:
+          SID: ${{ secrets.SID }}
+          SOURCE_PROJECT_NAME: ${{ secrets.SOURCE_PROJECT_NAME }}
+          DESTINATION_PROJECT_NAME: ${{ secrets.DESTINATION_PROJECT_NAME }}
