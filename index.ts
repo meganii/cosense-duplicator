@@ -1,31 +1,26 @@
-import { assertString, exportPages, importPages } from "./deps.ts";
+import { exportPages, importPages } from "@cosense/std/rest/";
+import { assertExists } from "@std/assert";
 
 const sid = Deno.env.get("SID");
-const exportingProjectName = Deno.env.get("SOURCE_PROJECT_NAME"); //インポート元(本来はprivateプロジェクト)
-const importingProjectName = Deno.env.get("DESTINATION_PROJECT_NAME"); //インポート先(publicプロジェクト)
+const exportingProjectName = Deno.env.get("SOURCE_PROJECT_NAME");       //インポート元(本来はprivateプロジェクト)
+const importingProjectName = Deno.env.get("DESTINATION_PROJECT_NAME");  //インポート先(publicプロジェクト)
 const shouldDuplicateByDefault =
   Deno.env.get("SHOULD_DUPLICATE_BY_DEFAULT") === "True";
 
-assertString(sid);
-assertString(exportingProjectName);
-assertString(importingProjectName);
+assertExists(sid);
+assertExists(exportingProjectName);
+assertExists(importingProjectName);
 
 console.log(`Exporting a json file from "/${exportingProjectName}"...`);
 const result = await exportPages(exportingProjectName, {
   sid,
   metadata: true,
 });
-if (!result.ok) {
-  const error = new Error();
-  error.name = `${result.value.name} when exporting a json file`;
-  error.message = result.value.message;
-  throw error;
+if (result.err) {
+  throw result.err;
 }
-const { pages } = result.value;
+const { pages } = result.val;
 console.log(`Export ${pages.length}pages:`);
-// for (const page of pages) {
-//   console.log(`\t${page.title}`);
-// }
 
 const importingPages = pages.filter(({ lines }) => {
   if (lines.some((line) => line.text.includes("[private.icon]"))) {
@@ -48,11 +43,8 @@ if (importingPages.length === 0) {
   }, {
     sid,
   });
-  if (!result.ok) {
-    const error = new Error();
-    error.name = `${result.value.name} when importing pages`;
-    error.message = result.value.message;
-    throw error;
+  if (result.err) {
+    throw result.err;
   }
-  console.log(result.value);
+  console.log(result.val);
 }

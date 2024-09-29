@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@cosense/std": "jsr:@cosense/std@^0.29.1",
+    "@std/assert": "jsr:@std/assert@^1.0.6"
+  }
+}
