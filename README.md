@@ -1,6 +1,6 @@
-# scrapbox-duplicator
+# cosense-duplicator
 
-Scrapboxの非公開・公開プロジェクトを分けて運用する際に面倒な「ページの転送」を自動で行います。
+Cosenseの非公開・公開プロジェクトを分けて運用する際、非公開プロジェクトから公開プロジェクトへの「ページの転送」をGitHub Actionsで実行する。
 
 ## 仕組み
 
@@ -10,17 +10,9 @@ Scrapboxの非公開・公開プロジェクトを分けて運用する際に面
 - エクスポートされたjsonファイルから`[public.icon]`が含まれているページのみを抽出
 - 抽出されたページを転送先プロジェクトへインポート
 
-## スタートガイド
-
-以下の2ステップで実行可能です。
-
-1. 下のボタン（'Deploy to Heroku'）を押し、必要な情報を入力。
-2. Heroku
-   Schedulerで`deno run --allow-net=scrapbox.io --allow-read=./ --allow-env index.ts`を定期実行するように設定
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fblu3mo%2Fscrapbox-duplicator%2Ftree%2Fmaster)
-
 ### 必要なもの
+
+GitHub ActionsのSecretsに以下を設定する。
 
 1. `SID` ScrapboxのSID（詳しくは
    [こちら](https://scrapbox.io/nishio/Scrapbox%E3%81%AEprivate%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AEAPI%E3%82%92%E5%8F%A9%E3%81%8F)
@@ -43,4 +35,4 @@ Scrapboxの非公開・公開プロジェクトを分けて運用する際に面
 
 ## 謝辞
 
-- Scrapboxを開発しているNota, Inc.の皆さんに感謝します
+- Cosenseを開発している株式会社Helpfeelの皆さんに感謝します
