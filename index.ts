@@ -2,8 +2,8 @@ import { exportPages, importPages } from "@cosense/std/rest/";
 import { assertExists } from "@std/assert";
 
 const sid = Deno.env.get("SID");
-const exportingProjectName = Deno.env.get("SOURCE_PROJECT_NAME");       //インポート元(本来はprivateプロジェクト)
-const importingProjectName = Deno.env.get("DESTINATION_PROJECT_NAME");  //インポート先(publicプロジェクト)
+const exportingProjectName = Deno.env.get("SOURCE_PROJECT_NAME"); //インポート元(本来はprivateプロジェクト)
+const importingProjectName = Deno.env.get("DESTINATION_PROJECT_NAME"); //インポート先(publicプロジェクト)
 const shouldDuplicateByDefault =
   Deno.env.get("SHOULD_DUPLICATE_BY_DEFAULT") === "True";
 
