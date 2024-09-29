@@ -1,4 +1,4 @@
-import { exportPages, importPages } from "@cosense/std/rest/";
+import { exportPages, importPages } from "@cosense/std/rest";
 import { assertExists } from "@std/assert";
 
 const sid = Deno.env.get("SID");
